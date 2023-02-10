@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;500;700;900&display=swap");
+
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --c-dark-blue: hsl(209, 23%, 22%);
+  --c-very-dark-blue-1: hsl(207, 26%, 17%);
+  --c-very-dark-blue-2: hsl(200, 15%, 8%);
+  --c-dark-gray: hsl(0, 0%, 52%);
+  --c-very-dark-gray-1: hsl(0, 0%, 98%);
+  --c-white: hsl(0, 0%, 100%);
+  --ff-poppins: "Poppins", sans-serif;
+}
+
+/* semantic color variables for this project */
+
+[theme="custom-light"] {
+  --c-background: var(--c-very-dark-gray-1);
+  --c-elements: var(--c-white);
+  --c-text: var(--c-very-dark-blue-2);
+  --c-input: var(--c-dark-gray);
+  --c-theme-switcher: var(--c-very-dark-blue-1);
+}
+
+[theme="custom-dark"] {
+  --c-background: var(--c-very-dark-blue-1);
+  --c-elements: var(--c-dark-blue);
+  --c-text: var(--c-white);
+  --c-input: var(--c-dark-gray);
+  --c-theme-switcher: var(--c-white);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  font-family: var(--ff-poppins);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color 0.5s, background-color 0.5s;
+  color: var(--c-text);
+  background: var(--c-background);
+  transition: color 0.5s, background-color 0.5s;
+}
