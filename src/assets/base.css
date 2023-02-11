@@ -5,19 +5,20 @@
   --c-dark-blue: hsl(209, 23%, 22%);
   --c-very-dark-blue-1: hsl(207, 26%, 17%);
   --c-very-dark-blue-2: hsl(200, 15%, 8%);
-  --c-dark-gray: hsl(0, 0%, 52%);
-  --c-very-dark-gray-1: hsl(0, 0%, 98%);
   --c-white: hsl(0, 0%, 100%);
+  --c-white-98: hsl(0, 0%, 98%);
+  --c-white-52: hsl(0, 0%, 52%);
   --ff-poppins: "Poppins", sans-serif;
+  --t-color-bg: color 0.5s, background-color 0.5s;
 }
 
 /* semantic color variables for this project */
 
 [theme="custom-light"] {
-  --c-background: var(--c-very-dark-gray-1);
+  --c-background: var(--c-white-98);
   --c-elements: var(--c-white);
   --c-text: var(--c-very-dark-blue-2);
-  --c-input: var(--c-dark-gray);
+  --c-input: var(--c-white-52);
   --c-theme-switcher: var(--c-very-dark-blue-1);
 }
 
@@ -25,7 +26,7 @@
   --c-background: var(--c-very-dark-blue-1);
   --c-elements: var(--c-dark-blue);
   --c-text: var(--c-white);
-  --c-input: var(--c-dark-gray);
+  --c-input: var(--c-white-52);
   --c-theme-switcher: var(--c-white);
 }
 
@@ -39,14 +40,13 @@
 }
 
 body {
-  min-height: 100vh;
-  line-height: 1.6;
-  font-family: var(--ff-poppins);
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: color 0.5s, background-color 0.5s;
-  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
   background: var(--c-background);
-  transition: color 0.5s, background-color 0.5s;
+  color: var(--c-text);
+  font-family: var(--ff-poppins);
+  line-height: 1.6;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  transition: var(--t-color-bg);
 }
