@@ -1,16 +1,48 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import countriesData from '@/assets/data.json';
-import CountryCard from '@/components/CountryCard.vue';
-import DropdownFilter from '@/components/DropdownFilter.vue';
-const countries = ref(countriesData.slice(0, 10));
-console.log(countries.value);
+import CountryCard from '@/components/CardCountry.vue';
+// import DropdownFilter from '@/components/DropdownFilter.vue';
+import InputSearch from '@/components/InputSearch.vue';
+import RegionCheckbox from '@/components/CheckboxRegion.vue';
+import type { IRegion } from '@/types';
+
+const countries = ref(countriesData.slice(0, 20));
+const regions = ref<IRegion[]>([
+	{
+		name: 'americas',
+		iconName: 'fa-globe-americas',
+	},
+	{
+		name: 'asia',
+		iconName: 'fa-globe-asia',
+	},
+	{
+		name: 'africa',
+		iconName: 'fa-globe-africa',
+	},
+	{
+		name: 'europe',
+		iconName: 'fa-globe-europe',
+	},
+	{
+		name: 'oceania',
+		iconName: 'gi-earth-asia-oceania',
+	},
+]);
 </script>
 
 <template>
 	<div class="search-bar">
-		<div class="input-search"></div>
-		<DropdownFilter />
+		<InputSearch />
+		<div class="filter-tags">
+			<RegionCheckbox
+				v-for="region in regions"
+				:key="region.name"
+				:name="region.name"
+				:iconName="region.iconName"
+			/>
+		</div>
 	</div>
 	<section class="countries">
 		<CountryCard
@@ -30,12 +62,22 @@ console.log(countries.value);
 	display: grid;
 	gap: 1rem;
 	grid-auto-flow: dense;
-	/* grid-auto-rows: 22rem; */
 	grid-template-columns: repeat(auto-fill, minmax(18.75rem, 1fr));
 }
 
 .search-bar {
-	height: 100px;
-	margin: 2rem 0;
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+}
+
+.filter-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
 }
 </style>

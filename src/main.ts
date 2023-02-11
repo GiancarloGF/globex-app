@@ -5,9 +5,29 @@ import { createPinia } from 'pinia';
 import router from './router';
 import App from './App.vue';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import { HiChevronDown, HiChevronUp } from 'oh-vue-icons/icons';
+import {
+	HiChevronDown,
+	HiChevronUp,
+	HiSearch,
+	FaGlobeAmericas,
+	FaGlobeAfrica,
+	FaGlobeEurope,
+	FaGlobeAsia,
+	GiEarthAsiaOceania,
+	FcGlobe,
+} from 'oh-vue-icons/icons';
 
-addIcons(HiChevronDown, HiChevronUp);
+addIcons(
+	HiChevronDown,
+	HiChevronUp,
+	HiSearch,
+	FaGlobeAmericas,
+	FaGlobeAfrica,
+	FaGlobeEurope,
+	FaGlobeAsia,
+	GiEarthAsiaOceania,
+	FcGlobe
+);
 const app = createApp(App);
 
 app.use(createPinia());

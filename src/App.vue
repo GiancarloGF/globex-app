@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import ThemeSwitcher from './components/ThemeSwitcher.vue';
+import TheLogo from './components/TheLogo.vue';
+import TheFooter from './components/TheFooter.vue';
 </script>
 
 <template>
 	<header>
-		<h3 class="logo">Where in the world?</h3>
+		<TheLogo />
 		<ThemeSwitcher />
 	</header>
 	<main>
 		<RouterView />
 	</main>
+	<footer>
+		<TheFooter />
+	</footer>
 </template>
 
 <style scoped>

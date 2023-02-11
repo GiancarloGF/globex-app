@@ -3,24 +3,27 @@ import { ref } from 'vue';
 import { useToggle } from '@vueuse/core';
 const isOpen = ref(false);
 const toggleDropdown = useToggle(isOpen);
-const menuItems = ['Europa', 'Asia', 'America', 'Oceania'];
+const menuItems: string[] = ['Europa', 'Asia', 'America', 'Oceania'];
 
-const onSelectItem = (item)=> {
+const onSelectItem = (item: string) => {
 	console.log(item);
 	// toggleDropdown();
 };
 </script>
 <template>
 	<div class="dropdown" @click="toggleDropdown()">
-		<span class="dropdown__label"
-			>Filter by Region</span
-		>
+		<span class="dropdown__label">Filter by region</span>
 		<div class="dropdown__icon">
 			<v-icon v-if="isOpen" name="hi-chevron-up" class="chevron" />
 			<v-icon v-else name="hi-chevron-down" class="chevron" />
 		</div>
 		<ul id="menu" class="menu" :class="{ open: isOpen }">
-			<li class="menu__item" v-for="item in menuItems" :key="item" @click.stop="onSelectItem(item)">
+			<li
+				class="menu__item"
+				v-for="item in menuItems"
+				:key="item"
+				@click.stop="onSelectItem(item)"
+			>
 				<span class="material-symbols-outlined">{{ item }}</span>
 			</li>
 		</ul>
@@ -28,19 +31,20 @@ const onSelectItem = (item)=> {
 </template>
 <style scoped>
 .dropdown {
-	position: relative;
-	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	height: 60px;
-	width: fit-content;
 	background: var(--c-elements);
+	border-radius: var(--br-general);
 	box-shadow: var(--bs-card);
-	border-radius: 8px;
 	color: var(--c-text);
-	font-family: var(--ff-poppins);
-	gap: 0.5rem;
 	cursor: pointer;
+	display: flex;
+	font-family: var(--ff-poppins);
+	font-size: 0.9rem;
+	gap: 0.5rem;
+	height: 60px;
+	justify-content: space-between;
+	position: relative;
+	width: fit-content;
 }
 
 button {
@@ -53,20 +57,20 @@ button {
 }
 
 .menu {
-	overflow: hidden;
-	position: absolute;
-	left: 0;
-	top: 68px;
-	z-index: 1;
-	width: 100%;
-	translate: -30px 0;
-	opacity: 0;
-	visibility: hidden;
-	border-radius: 8px;
 	background: var(--c-elements);
+	border-radius: var(--br-general);
 	box-shadow: var(--bs-card);
-	transition: 0.4s;
+	left: 0;
+	opacity: 0;
+	overflow: hidden;
 	padding: 0.5rem;
+	position: absolute;
+	top: 68px;
+	transition: 0.4s;
+	translate: -30px 0;
+	visibility: hidden;
+	width: 100%;
+	z-index: 1;
 }
 
 .menu.open {
@@ -76,12 +80,12 @@ button {
 }
 
 .menu > .menu__item {
-	gap: 10px;
-	border: 0;
 	border-radius: 0;
-	width: 100%;
-	padding: 0.5rem;
+	border: 0;
+	gap: 10px;
 	list-style: none;
+	padding: 0.5rem;
+	width: 100%;
 }
 
 .menu > .menu__item:hover {

@@ -20,19 +20,21 @@ defineProps<{
 </template>
 <style scoped>
 .country {
-	background-color: var(--c-elements);
-	border-radius: 0.5rem;
-	box-shadow: var(--bs-card);
+	border-radius: var(--br-general);
+	border: 3px solid var(--c-border-card);
 	color: var(--c-text);
-	overflow: hidden;
-	transition: var(--t-color-bg);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	overflow: hidden;
+	transition: var(--t-color-bg);
+	cursor: pointer;
+	/* transition: var(--t-main); */
 }
 
 .country__flag {
 	width: 100%;
+	background-color: var(--c-border-card);
 	/* max-height: 200px; */
 }
 
@@ -56,5 +58,17 @@ defineProps<{
 }
 .country__detail strong {
 	font-weight: 600;
+}
+
+/* when country is hovered */
+.country:hover {
+	border-color: var(--c-text);
+	transform: scale(1.025);
+	transition: transform 0.1s ease-in-out;
+	/* transition: var(--t-main); */
+}
+
+.country:hover .country__flag {
+	/* background-color: var(--c-text); */
 }
 </style>

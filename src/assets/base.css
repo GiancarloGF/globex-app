@@ -8,9 +8,12 @@
   --c-white: hsl(0, 0%, 100%);
   --c-white-98: hsl(0, 0%, 98%);
   --c-white-52: hsl(0, 0%, 52%);
+  --c-border-light: #c5c5c5;
+  --c-border-dark: #686868;
   --ff-poppins: "Poppins", sans-serif;
-  --t-color-bg: color 0.5s, background-color 0.5s;
+  --t-main: color 0.5s, background-color 0.5s, border 0.5s;
   --bs-card: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --br-general: 0.3rem;
 }
 
 /* semantic color variables for this project */
@@ -21,6 +24,7 @@
   --c-text: var(--c-very-dark-blue-2);
   --c-input: var(--c-white-52);
   --c-theme-switcher: var(--c-very-dark-blue-1);
+  --c-border-card: var(--c-border-light);
 }
 
 [theme="custom-dark"] {
@@ -29,6 +33,7 @@
   --c-text: var(--c-white);
   --c-input: var(--c-white-52);
   --c-theme-switcher: var(--c-white);
+  --c-border-card: var(--c-border-dark);
 }
 
 *,
@@ -38,6 +43,7 @@
   margin: 0;
   position: relative;
   font-weight: normal;
+
 }
 
 body {
@@ -49,5 +55,5 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   text-rendering: optimizeLegibility;
-  transition: var(--t-color-bg);
+  transition: var(--t-main);
 }
