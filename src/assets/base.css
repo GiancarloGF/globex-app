@@ -10,6 +10,7 @@
   --c-white-52: hsl(0, 0%, 52%);
   --ff-poppins: "Poppins", sans-serif;
   --t-color-bg: color 0.5s, background-color 0.5s;
+  --bs-card: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 /* semantic color variables for this project */

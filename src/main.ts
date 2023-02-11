@@ -1,14 +1,16 @@
-import { createApp } from "vue";
-import { createPinia } from "pinia";
+import './assets/main.css';
 
-import App from "./App.vue";
-import router from "./router";
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import router from './router';
+import App from './App.vue';
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { HiChevronDown, HiChevronUp } from 'oh-vue-icons/icons';
 
-import "./assets/main.css";
-
+addIcons(HiChevronDown, HiChevronUp);
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
-
-app.mount("#app");
+app.component('v-icon', OhVueIcon);
+app.mount('#app');

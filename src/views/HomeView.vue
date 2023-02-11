@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import countriesData from '@/assets/data.json';
 import CountryCard from '@/components/CountryCard.vue';
+import DropdownFilter from '@/components/DropdownFilter.vue';
 const countries = ref(countriesData.slice(0, 10));
 console.log(countries.value);
 </script>
@@ -9,7 +10,7 @@ console.log(countries.value);
 <template>
 	<div class="search-bar">
 		<div class="input-search"></div>
-		<div class="drop-down-filter"></div>
+		<DropdownFilter />
 	</div>
 	<section class="countries">
 		<CountryCard
