@@ -27,7 +27,9 @@ header {
 	align-items: center;
 	/* max-width: 100vh; */
 }
-
+footer {
+	margin-top: auto;
+}
 .logo {
 	font-size: 2rem;
 }

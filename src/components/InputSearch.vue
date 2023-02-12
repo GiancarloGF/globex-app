@@ -29,7 +29,7 @@ const { value } = storeToRefs(searchStore);
 	background-color: transparent;
 	border-radius: var(--br-general);
 	border: 2px solid var(--c-border-card);
-	color: var(--c-text);
+	/* color: var(--c-text); */
 	font-family: var(--ff-poppins);
 	font-size: 1rem;
 	height: 60px;
@@ -49,7 +49,7 @@ const { value } = storeToRefs(searchStore);
 }
 .input:focus {
 	border-color: var(--c-text);
-	/* transition: var(--t-main); */
+	transition: var(--t-main);
 }
 
 .input:focus ~ .icon {

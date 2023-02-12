@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCountriesStore } from '@/stores/countries';
-
+import { useRouter, useRoute } from 'vue-router';
 const props = defineProps<{
 	flag: string;
 	name: string;
@@ -10,11 +10,21 @@ const props = defineProps<{
 }>();
 
 const countriesStore = useCountriesStore();
-const { selectCountry } = countriesStore;
+const router = useRouter();
+
+const onSelectCountry = () => {
+	countriesStore.country = props;
+	router.push({
+		name: 'country',
+		params: {
+			countryId: props.name,
+		},
+	});
+};
 </script>
 <template>
-	<article class="country" @click="selectCountry(props)">
-		<img :src="flag" alt="Germany flag" class="country__flag" />
+	<article class="country" @click="onSelectCountry">
+		<img :src="flag" :alt="`${flag} flag`" class="country__flag" />
 		<div class="country__info">
 			<h4 class="country__name">{{ name }}</h4>
 			<p class="country__detail"><strong>Population: </strong>{{ population }}</p>

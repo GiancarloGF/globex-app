@@ -1,19 +1,20 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import countriesData from '@/assets/data.json';
+import type { ICountry } from '@/types';
 
 export const useCountriesStore = defineStore('countries', () => {
 	// state
-	const countries = ref<any[]>(countriesData.slice(0, 20));
-	const countrySelected = ref<any>(null);
+	const countries = ref<ICountry[]>(countriesData as ICountry[]);
+	const country = ref<ICountry | null>(null);
 	// computed
 	// actions
 	function selectCountry(country: any) {
-		countrySelected.value = country;
+		country.value = country;
 	}
 	function unselectCountry() {
-		countrySelected.value = null;
+		country.value = null;
 	}
 
-	return { countries, countrySelected, selectCountry, unselectCountry };
+	return { countries, country, selectCountry, unselectCountry };
 });
