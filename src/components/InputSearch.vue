@@ -1,6 +1,17 @@
+<script setup lang="ts">
+import { useSearchStore } from '@/stores/search';
+import { storeToRefs } from 'pinia';
+const searchStore = useSearchStore();
+const { value } = storeToRefs(searchStore);
+</script>
 <template>
 	<div class="group">
-		<input placeholder="Search for a country..." type="search" class="input" />
+		<input
+			v-model="value"
+			placeholder="Search for a country..."
+			type="search"
+			class="input"
+		/>
 		<v-icon name="hi-search" class="icon" />
 	</div>
 </template>

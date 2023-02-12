@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { IRegionNames } from '@/types';
+import { useSearchStore } from '@/stores/search';
+import { storeToRefs } from 'pinia';
+const searchStore = useSearchStore();
+const { filters } = storeToRefs(searchStore);
 defineProps<{
 	name: IRegionNames;
 	iconName: string;
@@ -7,7 +11,13 @@ defineProps<{
 </script>
 <template>
 	<div class="box">
-		<input type="checkbox" name="regions" :value="name" class="checkbox" />
+		<input
+			type="checkbox"
+			name="regions"
+			class="checkbox"
+			:value="name"
+			v-model="filters"
+		/>
 		<div class="box__content">
 			<v-icon :name="iconName" class="box__icon" scale="1.8" />
 			<span class="box__label">{{ name }}</span>

@@ -1,3 +1,9 @@
+<script setup lang="ts">
+// import { useSearchStore } from '@/stores/search';
+// import { storeToRefs } from 'pinia';
+// const searchStore = useSearchStore();
+// const { value } = storeToRefs(searchStore);
+</script>
 <template>
 	<div class="logo">
 		<h3 class="logo__text">Globex</h3>

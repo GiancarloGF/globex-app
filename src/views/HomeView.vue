@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import countriesData from '@/assets/data.json';
 import CountryCard from '@/components/CardCountry.vue';
-// import DropdownFilter from '@/components/DropdownFilter.vue';
 import InputSearch from '@/components/InputSearch.vue';
 import RegionCheckbox from '@/components/CheckboxRegion.vue';
 import type { IRegion } from '@/types';
-
-const countries = ref(countriesData.slice(0, 20));
+import { useCountriesStore } from '@/stores/countries';
+import { storeToRefs } from 'pinia';
+const countriesStore = useCountriesStore();
+const { countries } = storeToRefs(countriesStore);
 const regions = ref<IRegion[]>([
 	{
 		name: 'americas',

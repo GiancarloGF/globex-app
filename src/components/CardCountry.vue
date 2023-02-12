@@ -1,14 +1,19 @@
 <script setup lang="ts">
-defineProps<{
+import { useCountriesStore } from '@/stores/countries';
+
+const props = defineProps<{
 	flag: string;
 	name: string;
 	population: number;
 	region: string;
 	capital: string;
 }>();
+
+const countriesStore = useCountriesStore();
+const { selectCountry } = countriesStore;
 </script>
 <template>
-	<article class="country">
+	<article class="country" @click="selectCountry(props)">
 		<img :src="flag" alt="Germany flag" class="country__flag" />
 		<div class="country__info">
 			<h4 class="country__name">{{ name }}</h4>
