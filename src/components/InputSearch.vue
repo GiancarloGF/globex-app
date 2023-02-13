@@ -2,12 +2,12 @@
 import { useSearchStore } from '@/stores/search';
 import { storeToRefs } from 'pinia';
 const searchStore = useSearchStore();
-const { value } = storeToRefs(searchStore);
+const { inputValue } = storeToRefs(searchStore);
 </script>
 <template>
 	<div class="group">
 		<input
-			v-model="value"
+			v-model="inputValue"
 			placeholder="Search for a country..."
 			type="search"
 			class="input"
@@ -29,7 +29,7 @@ const { value } = storeToRefs(searchStore);
 	background-color: transparent;
 	border-radius: var(--br-general);
 	border: 2px solid var(--c-border-card);
-	/* color: var(--c-text); */
+	color: var(--c-text);
 	font-family: var(--ff-poppins);
 	font-size: 1rem;
 	height: 60px;

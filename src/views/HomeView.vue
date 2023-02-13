@@ -7,7 +7,7 @@ import type { IRegion } from '@/types';
 import { useCountriesStore } from '@/stores/countries';
 import { storeToRefs } from 'pinia';
 const countriesStore = useCountriesStore();
-const { countries } = storeToRefs(countriesStore);
+const { countriesSearched } = storeToRefs(countriesStore);
 const regions = ref<IRegion[]>([
 	{
 		name: 'americas',
@@ -46,14 +46,10 @@ const regions = ref<IRegion[]>([
 	</div>
 	<section class="countries">
 		<CountryCard
-			v-for="country in countries"
+			v-for="country in countriesSearched"
 			class="country"
 			:key="country.name"
-			:name="country.name"
-			:flag="country.flag"
-			:population="country.population"
-			:region="country.region"
-			:capital="(country.capital as string)"
+			:data="country"
 		/>
 	</section>
 </template>

@@ -27,6 +27,10 @@ const countryDetails = computed<any>(() => [
 		value: country?.value?.population || '',
 	},
 	{
+		label: 'Region',
+		value: country?.value?.region || '',
+	},
+	{
 		label: 'Sub region',
 		value: country?.value?.subregion || '',
 	},
@@ -36,15 +40,15 @@ const countryDetails = computed<any>(() => [
 	},
 	{
 		label: 'Top level domain',
-		value: country?.value?.topLevelDomain[0] || '',
+		value: country?.value?.topLevelDomain.join(', ') || '',
 	},
 	{
 		label: 'Currencies',
-		value: country?.value?.currencies[0].code || '',
+		value: country?.value?.currencies.map((i) => i.code).join(', ') || '',
 	},
 	{
 		label: 'Languages',
-		value: country?.value?.languages[0].name || '',
+		value: country?.value?.languages.map((i) => i.name).join(', ') || '',
 	},
 ]);
 </script>
@@ -100,7 +104,7 @@ const countryDetails = computed<any>(() => [
 	display: flex;
 	gap: 0.5rem;
 	align-items: center;
-	margin: 1rem 0;
+	margin: 2rem 0 4rem 0;
 }
 .button-back__icon {
 	color: var(--c-text);
