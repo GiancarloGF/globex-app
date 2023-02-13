@@ -16,6 +16,7 @@ import {
 	GiEarthAsiaOceania,
 	FcGlobe,
 	MdKeyboardbackspaceRound,
+	IoClose,
 } from 'oh-vue-icons/icons';
 
 addIcons(
@@ -28,7 +29,8 @@ addIcons(
 	FaGlobeAsia,
 	GiEarthAsiaOceania,
 	FcGlobe,
-	MdKeyboardbackspaceRound
+	MdKeyboardbackspaceRound,
+	IoClose
 );
 const app = createApp(App);
 

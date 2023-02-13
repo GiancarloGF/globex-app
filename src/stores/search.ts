@@ -4,7 +4,7 @@ import { refDebounced } from '@vueuse/core';
 export const useSearchStore = defineStore('search', () => {
 	// state
 	const inputValue = ref<string>('');
-	const inputValueDebounced = refDebounced(inputValue, 1000);
+	const inputValueDebounced = refDebounced(inputValue, 500);
 	const filters = ref<string[]>([]);
 	// computed
 	const filtersString = computed<string>(() => filters.value.join(', '));
