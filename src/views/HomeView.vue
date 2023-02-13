@@ -52,6 +52,9 @@ const regions = ref<IRegion[]>([
 			:data="country"
 		/>
 	</section>
+	<div v-if="countriesSearched.length === 0" class="not-found">
+		Sorry, no countries were found ☹️
+	</div>
 </template>
 <style scoped>
 .countries {
@@ -75,5 +78,10 @@ const regions = ref<IRegion[]>([
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
+}
+
+.not-found {
+	text-align: center;
+	font-size: 1.2rem;
 }
 </style>

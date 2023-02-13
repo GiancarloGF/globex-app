@@ -104,7 +104,7 @@ const countryDetails = computed<any>(() => [
 	display: flex;
 	gap: 0.5rem;
 	align-items: center;
-	margin: 2rem 0 4rem 0;
+	margin: 4rem 0;
 }
 .button-back__icon {
 	color: var(--c-text);
@@ -118,7 +118,6 @@ const countryDetails = computed<any>(() => [
 	width: 100%;
 	display: grid;
 	grid-template-columns: 2fr 1fr;
-	margin-top: 3rem;
 	column-gap: 4rem;
 }
 
