@@ -2,6 +2,7 @@
 import type { IRegionNames } from '@/types';
 import { useSearchStore } from '@/stores/search';
 import { storeToRefs } from 'pinia';
+import { toFirstUpper } from '@/utils/strings';
 const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);
 defineProps<{
@@ -20,7 +21,7 @@ defineProps<{
 		/>
 		<div class="box__content">
 			<v-icon :name="iconName" class="box__icon" scale="1.8" />
-			<span class="box__label">{{ name }}</span>
+			<span class="box__label">{{ toFirstUpper(name) }}</span>
 		</div>
 	</div>
 </template>
@@ -41,7 +42,7 @@ defineProps<{
 
 .box__content {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	color: var(--c-border-card);
 	gap: 0.5rem;

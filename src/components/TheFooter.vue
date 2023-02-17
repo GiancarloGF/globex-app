@@ -23,4 +23,14 @@ a {
 	font-weight: bold;
 	font-size: 1.2rem;
 }
+
+@media (max-width: 425px) {
+	div {
+		padding: 1rem;
+	}
+
+	a {
+		font-size: 1rem;
+	}
+}
 </style>

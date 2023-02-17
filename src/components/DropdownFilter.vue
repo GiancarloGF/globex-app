@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useToggle } from '@vueuse/core';
+import CheckboxRegion from '@/components/CheckboxRegion.vue';
+import { REGIONS } from '@/constants';
 const isOpen = ref(false);
 const toggleDropdown = useToggle(isOpen);
-const menuItems: string[] = ['Europa', 'Asia', 'America', 'Oceania'];
-
-const onSelectItem = (item: string) => {
-	console.log(item);
-	// toggleDropdown();
-};
 </script>
 <template>
 	<div class="dropdown" @click="toggleDropdown()">
@@ -17,25 +13,23 @@ const onSelectItem = (item: string) => {
 			<v-icon v-if="isOpen" name="hi-chevron-up" class="chevron" />
 			<v-icon v-else name="hi-chevron-down" class="chevron" />
 		</div>
-		<ul id="menu" class="menu" :class="{ open: isOpen }">
-			<li
-				class="menu__item"
-				v-for="item in menuItems"
-				:key="item"
-				@click.stop="onSelectItem(item)"
-			>
-				<span class="material-symbols-outlined">{{ item }}</span>
-			</li>
-		</ul>
+		<div id="menu" class="menu" @click.stop="" :class="{ open: isOpen }">
+			<CheckboxRegion
+				v-for="region in REGIONS"
+				:key="region.name"
+				:name="region.name"
+				:iconName="region.iconName"
+			/>
+		</div>
 	</div>
 </template>
 <style scoped>
 .dropdown {
 	align-items: center;
-	background: var(--c-elements);
 	border-radius: var(--br-general);
-	box-shadow: var(--bs-card);
-	color: var(--c-text);
+	border: 2px solid var(--c-border-card);
+	background-color: transparent;
+	color: var(--c-border-card);
 	cursor: pointer;
 	display: flex;
 	font-family: var(--ff-poppins);
@@ -44,7 +38,7 @@ const onSelectItem = (item: string) => {
 	height: 60px;
 	justify-content: space-between;
 	position: relative;
-	width: fit-content;
+	width: 100%;
 }
 
 button {
@@ -57,9 +51,9 @@ button {
 }
 
 .menu {
-	background: var(--c-elements);
+	background: var(--c-background);
 	border-radius: var(--br-general);
-	box-shadow: var(--bs-card);
+	border: 2px solid var(--c-border-card);
 	left: 0;
 	opacity: 0;
 	overflow: hidden;
@@ -71,6 +65,9 @@ button {
 	visibility: hidden;
 	width: 100%;
 	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .menu.open {

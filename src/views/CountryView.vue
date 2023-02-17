@@ -121,6 +121,9 @@ const countryDetails = computed<any>(() => [
 	column-gap: 4rem;
 }
 
+.country__info {
+}
+
 .country__name {
 	font-size: 3rem;
 	font-weight: bold;
@@ -163,6 +166,20 @@ const countryDetails = computed<any>(() => [
 	padding: 0.2rem 0.5rem;
 	border-radius: 5px;
 	cursor: pointer;
+}
+@media (max-width: 425px) {
+	.country {
+		grid-template-columns: 1fr;
+		row-gap: 2rem;
+	}
+
+	.country__info {
+		padding: 0.5rem;
+	}
+
+	.button-back {
+		margin: 2rem 0;
+	}
 }
 /* @media (min-width: 1024px) {
 	.about {

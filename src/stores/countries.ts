@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
 import countriesData from '@/assets/data.json';
 import type { ICountry } from '@/types';
+import { toLower } from '@/utils/strings';
 
 export const useCountriesStore = defineStore('countries', () => {
 	const searchStore = useSearchStore();
@@ -14,14 +15,14 @@ export const useCountriesStore = defineStore('countries', () => {
 	const countriesByFilters = computed(() => {
 		if (filters.value.length > 0)
 			return countries.value.filter((i) =>
-				filters.value.includes(i.region.toLowerCase())
+				filters.value.includes(toLower(i.region))
 			);
 		return countries.value;
 	});
 	const countriesByText = computed(() => {
 		if (inputValueDebounced.value !== '')
 			return countriesByFilters.value.filter((i) =>
-				i.name.toLowerCase().includes(inputValueDebounced.value.toLowerCase())
+				toLower(i.name).includes(toLower(inputValueDebounced.value))
 			);
 		return countriesByFilters.value;
 	});
