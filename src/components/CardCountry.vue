@@ -1,41 +1,37 @@
 <script setup lang="ts">
-import { useCountriesStore } from '@/stores/countries';
+// import { useCountriesStore } from '@/stores/countries';
+import type { ICountry } from '@/types/country';
+import { toLower } from '@/utils/strings';
+import { toRefs } from 'vue';
 import { useRouter } from 'vue-router';
-import type { ICountry } from '@/types';
 
-const countriesStore = useCountriesStore();
+// const countriesStore = useCountriesStore();
 const router = useRouter();
 const props = defineProps<{
 	data: ICountry;
 }>();
 
+const { name, flags, population, region, capital } = toRefs(props.data);
+
 const onSelectCountry = () => {
-	countriesStore.country = props.data;
+	// countriesStore.country = props.data;
 	router.push({
 		name: 'country',
 		params: {
-			countryId: props.data.name,
+			countryId: toLower(props.data.name.common),
 		},
 	});
 };
 </script>
 <template>
 	<article class="country" @click="onSelectCountry">
-		<img
-			:src="props.data.flag"
-			:alt="`${props.data.flag} flag`"
-			class="country__flag"
-		/>
+		<img :src="flags.png" :alt="`${name.common} flag`" class="country__flag" />
 		<div class="country__info">
-			<h4 class="country__name">{{ props.data.name }}</h4>
-			<p class="country__detail">
-				<strong>Population: </strong>{{ props.data.population }}
-			</p>
-			<p class="country__detail">
-				<strong>Region: </strong>{{ props.data.region }}
-			</p>
-			<p class="country__detail">
-				<strong>Capital: </strong>{{ props.data.capital }}
+			<h4 class="country__name">{{ name.common }}</h4>
+			<p class="country__detail"><strong>Population: </strong>{{ population }}</p>
+			<p class="country__detail"><strong>Region: </strong>{{ region }}</p>
+			<p v-if="capital" class="country__detail">
+				<strong>Capital: </strong>{{ capital[0] }}
 			</p>
 		</div>
 	</article>

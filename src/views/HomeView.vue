@@ -1,25 +1,30 @@
 <script setup lang="ts">
 import CountryCard from '@/components/CardCountry.vue';
-import { useCountriesStore } from '@/stores/countries';
-import { storeToRefs } from 'pinia';
 import SearchBar from '@/components/SearchBar.vue';
-const countriesStore = useCountriesStore();
-const { countriesSearched } = storeToRefs(countriesStore);
+import { useQuery } from '@tanstack/vue-query';
+import { getCountries } from '@/services/countries';
+
+const { isLoading, isError, data } = useQuery({
+	queryKey: ['countries'],
+	queryFn: getCountries,
+});
 </script>
 
 <template>
 	<SearchBar />
-	<section class="countries">
+	<div v-if="isLoading">Loading...</div>
+	<div v-if="isError">An error has ocurred</div>
+	<section v-if="data" class="countries">
 		<CountryCard
-			v-for="country in countriesSearched"
+			v-for="country in data"
 			class="country"
-			:key="country.name"
+			:key="country.name.common"
 			:data="country"
 		/>
 	</section>
-	<div v-if="countriesSearched.length === 0" class="not-found">
+	<!-- <div v-if="data && data.length === 0" class="not-found">
 		Sorry, no countries were found ☹️
-	</div>
+	</div> -->
 </template>
 <style scoped>
 .countries {

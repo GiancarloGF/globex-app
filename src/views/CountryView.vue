@@ -1,55 +1,52 @@
 <script setup lang="ts">
-import { useCountriesStore } from '@/stores/countries';
-import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
-import { RouterLink } from 'vue-router';
-import { useRoute, useRouter } from 'vue-router';
-import type { ICountry } from '@/types';
-const route = useRoute();
+import { RouterLink, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+import { useQuery } from '@tanstack/vue-query';
+import { getCountry } from '@/services/countries';
+
 const router = useRouter();
-const countriesStore = useCountriesStore();
-const { countries } = storeToRefs(countriesStore);
-const country = computed<ICountry | undefined>(() =>
-	countries.value.find((i) => i.name === route.params.countryId)
-);
-const countryBordersCompleted = computed<ICountry[] | undefined>(() => {
-	const countryBorders = country?.value?.borders;
-	return countries.value?.filter((i) => countryBorders?.includes(i.alpha3Code));
+const route = useRoute();
+const countryId: string = route.params.countryId as string;
+
+const { isLoading, isError, data } = useQuery({
+	queryKey: ['country', countryId],
+	queryFn: () => getCountry(countryId),
 });
 
 const countryDetails = computed<any>(() => [
 	{
 		label: 'Native name',
-		value: country?.value?.name || '',
+		value: data.value?.[0].name.common || '',
 	},
 	{
 		label: 'Population',
-		value: country?.value?.population || '',
+		value: data.value?.[0]?.population || '',
 	},
 	{
 		label: 'Region',
-		value: country?.value?.region || '',
+		value: data.value?.[0]?.region || '',
 	},
 	{
 		label: 'Sub region',
-		value: country?.value?.subregion || '',
+		value: data.value?.[0]?.subregion || '',
 	},
 	{
 		label: 'Capital',
-		value: country?.value?.capital || '',
+		value: data.value?.[0]?.capital?.[0] || '',
 	},
-	{
-		label: 'Top level domain',
-		value: country?.value?.topLevelDomain.join(', ') || '',
-	},
-	{
-		label: 'Currencies',
-		value: country?.value?.currencies.map((i) => i.code).join(', ') || '',
-	},
-	{
-		label: 'Languages',
-		value: country?.value?.languages.map((i) => i.name).join(', ') || '',
-	},
+	// {
+	// 	label: 'Top level domain',
+	// 	value: data.value?.[0]?.topLevelDomain.join(', ') || '',
+	// },
+	// {
+	// 	label: 'Currencies',
+	// 	value: data.value?.[0]?.currencies.map((i) => i.code).join(', ') || '',
+	// },
+	// {
+	// 	label: 'Languages',
+	// 	value: data.value?.[0]?.languages.map((i) => i.name).join(', ') || '',
+	// },
 ]);
 </script>
 <template>
@@ -57,34 +54,39 @@ const countryDetails = computed<any>(() => [
 		<v-icon name="md-keyboardbackspace-round" class="button-back__icon" />
 		<span class="button-back__label">Go to countries</span>
 	</RouterLink>
-	<div v-if="country" class="country">
-		<img
-			:src="country.flag"
-			:alt="`${country.flag} flag`"
-			class="country__flag"
-		/>
-		<div class="country__info">
-			<h1 class="country__name">{{ country.name }}</h1>
-			<div class="country__details">
-				<p
-					v-for="detail in countryDetails"
-					:key="detail.label"
-					class="country__detail"
-				>
-					<strong>{{ detail.label }}: </strong>{{ detail.value }}
-				</p>
-				<div v-if="country.borders" class="country__detail detail__borders">
-					<strong>Border countries: </strong>
-					<div class="borders">
-						<div
-							v-for="border in countryBordersCompleted"
-							:key="border.name"
-							class="border"
-							@click="
-								router.push({ name: 'country', params: { countryId: border.name } })
-							"
-						>
-							{{ border.name }}
+	<div v-if="isLoading">Loading...</div>
+	<div v-if="isError">Han error has ocurred</div>
+	<div v-if="data">
+		<div v-for="country in data" :key="country.name.common" class="country">
+			<img
+				:src="country.flags.png"
+				:alt="`${country.flag} flag`"
+				class="country__flag"
+			/>
+			<div class="country__info">
+				<h1 class="country__name">{{ country.name.common }}</h1>
+				<div class="country__details">
+					<p
+						v-for="detail in countryDetails"
+						:key="detail.label"
+						class="country__detail"
+					>
+						<strong>{{ detail.label }}: </strong>{{ detail.value }}
+					</p>
+					<div v-if="country.borders" class="country__detail detail__borders">
+						<strong>Border countries: </strong>
+						<div class="borders">
+							<!-- <div
+								v-for="border in country.borders"
+								:key="border"
+								class="border"
+								@click="router.push({ name: 'country', params: { countryId: border } })"
+							>
+								{{ border }}
+							</div> -->
+							<div v-for="border in country.borders" :key="border" class="border">
+								{{ border }}
+							</div>
 						</div>
 					</div>
 				</div>

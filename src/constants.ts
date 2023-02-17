@@ -21,3 +21,5 @@ export const REGIONS: IRegion[] = [
 		iconName: 'gi-earth-asia-oceania',
 	},
 ];
+
+export const COUNTRIES_BASE_URL = 'https://restcountries.com/v3.1';
