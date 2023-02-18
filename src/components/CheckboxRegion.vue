@@ -1,24 +1,23 @@
 <script setup lang="ts">
-// import type { IRegionNames } from '@/types/Region';
 import useSearchStore from '@/stores/search';
 import { storeToRefs } from 'pinia';
 import { toFirstUpper } from '@/utils/strings';
+import { computed } from 'vue';
 const searchStore = useSearchStore();
-const { filters } = storeToRefs(searchStore);
-defineProps<{
+const { region } = storeToRefs(searchStore);
+const props = defineProps<{
 	name: string; // TODO: type this
 	iconName: string;
 }>();
+
+const isSelected = computed(() => region.value === props.name);
+
+const onSelect = () => {
+	region.value = props.name;
+};
 </script>
 <template>
-	<div class="box">
-		<input
-			type="checkbox"
-			name="regions"
-			class="checkbox"
-			:value="name"
-			v-model="filters"
-		/>
+	<div class="box" :class="{ selected: isSelected }" @click="onSelect">
 		<div class="box__content">
 			<v-icon :name="iconName" class="box__icon" scale="1.8" />
 			<span class="box__label">{{ toFirstUpper(name) }}</span>
@@ -38,6 +37,10 @@ defineProps<{
 	appearance: none;
 	-webkit-appearance: none;
 	z-index: 20;
+}
+
+.box {
+	cursor: pointer;
 }
 
 .box__content {
@@ -63,16 +66,16 @@ defineProps<{
 }
 
 /* when checkbox checked */
-.checkbox:checked ~ .box__content {
+.box.selected .box__content {
 	border-color: var(--c-text);
 	/* transition: var(--t-main); */
 }
 
-.checkbox:checked ~ .box__content .box__icon {
+.box.selected .box__content .box__icon {
 	color: var(--c-text);
 	/* transition: var(--t-main); */
 }
-.checkbox:checked ~ .box__content .box__label {
+.box.selected .box__content .box__label {
 	color: var(--c-text);
 	/* transition: var(--t-main); */
 }

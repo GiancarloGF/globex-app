@@ -6,15 +6,16 @@ const useSearchStore = defineStore('search', () => {
 	// state
 	const inputValue = ref<string>('');
 	const inputValueDebounced = refDebounced(inputValue, 500);
-	const path = computed<string>(() =>
-		inputValueDebounced.value ? `/name/${inputValueDebounced.value}` : '/all'
-	);
 	const filters = ref<string[]>([]);
-	// computed
-	const filtersString = computed<string>(() => filters.value.join(', '));
-	// actions
+	const region = ref<string>('');
 
-	return { inputValue, inputValueDebounced, filters, filtersString, path };
+	const path = computed<string>(() => {
+		if (inputValueDebounced.value) return `/name/${inputValueDebounced.value}`;
+		else if (region.value) return `/region/${region.value}`;
+		else return '/all';
+	});
+
+	return { inputValue, inputValueDebounced, filters, path, region };
 });
 
 export default useSearchStore;
