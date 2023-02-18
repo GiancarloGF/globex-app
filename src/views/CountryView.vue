@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { useQuery } from '@tanstack/vue-query';
 import { getCountry } from '@/services/countries';
 import { toLower } from '@/utils/strings';
+import LoaderGlobe from '@/components/LoaderGlobe.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -59,7 +60,7 @@ const onSelectBorder = (borderId: string) => {
 		<v-icon name="md-keyboardbackspace-round" class="button-back__icon" />
 		<span class="button-back__label">Go to countries</span>
 	</RouterLink>
-	<div v-if="isLoading">Loading...</div>
+	<LoaderGlobe v-if="isLoading" />
 	<div v-if="isError">Han error has ocurred</div>
 	<div v-if="data">
 		<div v-for="country in data" :key="country.name.common" class="country">

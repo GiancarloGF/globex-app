@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { getCountries } from '@/services/countries';
 import useSearchStore from '@/stores/search';
 import { storeToRefs } from 'pinia';
+import LoaderGlobe from '@/components/LoaderGlobe.vue';
 
 const searchStore = useSearchStore();
 const { path } = storeToRefs(searchStore);
@@ -16,7 +17,7 @@ const { isLoading, isError, data } = useQuery({
 
 <template>
 	<SearchBar />
-	<div v-if="isLoading">Loading...</div>
+	<LoaderGlobe v-if="isLoading" />
 	<div v-if="isError">An error has ocurred</div>
 	<section v-if="data" class="countries">
 		<CountryCard
