@@ -64,7 +64,7 @@ const onSelectBorder = (borderId: string) => {
 	<div v-if="data">
 		<div v-for="country in data" :key="country.name.common" class="country">
 			<img
-				:src="country.flags.png"
+				:src="country.flags.svg"
 				:alt="`${country.flag} flag`"
 				class="country__flag"
 			/>

@@ -13,7 +13,7 @@ const props = defineProps<{
 const isSelected = computed(() => region.value === props.name);
 
 const onSelect = () => {
-	region.value = props.name;
+	region.value = isSelected.value ? '' : props.name;
 };
 </script>
 <template>
