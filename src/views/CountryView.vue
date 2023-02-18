@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { RouterLink, useRouter } from 'vue-router';
-import { useRoute } from 'vue-router';
+import { computed, Transition } from 'vue';
+import { RouterLink, useRouter, useRoute } from 'vue-router';
 import { useQuery } from '@tanstack/vue-query';
 import { getCountry } from '@/services/countries';
 import { toLower } from '@/utils/strings';
@@ -62,43 +61,45 @@ const onSelectBorder = (borderId: string) => {
 	</RouterLink>
 	<LoaderGlobe v-if="isLoading" />
 	<div v-if="isError">Han error has ocurred</div>
-	<div v-if="data">
-		<div v-for="country in data" :key="country.name.common" class="country">
-			<img
-				:src="country.flags.svg"
-				:alt="`${country.flag} flag`"
-				class="country__flag"
-			/>
-			<div class="country__info">
-				<h1 class="country__name">{{ country.name.common }}</h1>
-				<div class="country__details">
-					<p
-						v-for="detail in countryDetails"
-						:key="detail.label"
-						class="country__detail"
-					>
-						<strong>{{ detail.label }}: </strong>{{ detail.value }}
-					</p>
-					<div v-if="country.borders" class="country__detail detail__borders">
-						<strong>Border countries: </strong>
-						<div class="borders">
-							<div
-								v-for="border in country.borders"
-								:key="border"
-								class="border"
-								@click="onSelectBorder(border)"
-							>
-								{{ border }}
+	<Transition>
+		<div v-if="data">
+			<div v-for="country in data" :key="country.name.common" class="country">
+				<img
+					:src="country.flags.svg"
+					:alt="`${country.flag} flag`"
+					class="country__flag"
+				/>
+				<div class="country__info">
+					<h1 class="country__name">{{ country.name.common }}</h1>
+					<div class="country__details">
+						<p
+							v-for="detail in countryDetails"
+							:key="detail.label"
+							class="country__detail"
+						>
+							<strong>{{ detail.label }}: </strong>{{ detail.value }}
+						</p>
+						<div v-if="country.borders" class="country__detail detail__borders">
+							<strong>Border countries: </strong>
+							<div class="borders">
+								<div
+									v-for="border in country.borders"
+									:key="border"
+									class="border"
+									@click="onSelectBorder(border)"
+								>
+									{{ border }}
+								</div>
+								<!-- <div v-for="border in country.borders" :key="border" class="border">
+									{{ border }}
+								</div> -->
 							</div>
-							<!-- <div v-for="border in country.borders" :key="border" class="border">
-								{{ border }}
-							</div> -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</Transition>
 </template>
 
 <style scoped>
@@ -174,6 +175,16 @@ const onSelectBorder = (borderId: string) => {
 	padding: 0.2rem 0.5rem;
 	border-radius: 5px;
 	cursor: pointer;
+}
+
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
 }
 @media (max-width: 425px) {
 	.country {

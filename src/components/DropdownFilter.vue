@@ -13,7 +13,7 @@ const toggleDropdown = useToggle(isOpen);
 			<v-icon v-if="isOpen" name="hi-chevron-up" class="chevron" />
 			<v-icon v-else name="hi-chevron-down" class="chevron" />
 		</div>
-		<div id="menu" class="menu" @click.stop="" :class="{ open: isOpen }">
+		<div id="menu" class="menu" :class="{ open: isOpen }">
 			<CheckboxRegion
 				v-for="region in REGIONS"
 				:key="region.name"

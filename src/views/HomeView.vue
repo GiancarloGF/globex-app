@@ -6,6 +6,7 @@ import { getCountries } from '@/services/countries';
 import useSearchStore from '@/stores/search';
 import { storeToRefs } from 'pinia';
 import LoaderGlobe from '@/components/LoaderGlobe.vue';
+import { TransitionGroup } from 'vue';
 
 const searchStore = useSearchStore();
 const { path } = storeToRefs(searchStore);
@@ -19,14 +20,16 @@ const { isLoading, isError, data } = useQuery({
 	<SearchBar />
 	<LoaderGlobe v-if="isLoading" />
 	<div v-if="isError">An error has ocurred</div>
-	<section v-if="data" class="countries">
+	<TransitionGroup name="list" tag="section" v-if="data" class="countries">
 		<CountryCard
 			v-for="country in data"
 			class="country"
 			:key="country.name.common"
 			:data="country"
 		/>
-	</section>
+	</TransitionGroup>
+	<!-- <section v-if="data" class="countries">
+	</section> -->
 	<!-- <div v-if="data && data.length === 0" class="not-found">
 		Sorry, no countries were found ☹️
 	</div> -->
@@ -42,6 +45,16 @@ const { isLoading, isError, data } = useQuery({
 .not-found {
 	text-align: center;
 	font-size: 1.2rem;
+}
+
+.list-enter-active,
+.list-leave-active {
+	transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+	opacity: 0;
+	transform: translateX(30px);
 }
 
 @media (max-width: 425px) {
