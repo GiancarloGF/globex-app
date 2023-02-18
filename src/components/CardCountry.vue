@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { useCountriesStore } from '@/stores/countries';
 import type { ICountry } from '@/types/country';
-import { toLower } from '@/utils/strings';
+import { formatNumberWithSuffix, toLower } from '@/utils';
 import { toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -28,7 +28,9 @@ const onSelectCountry = () => {
 		<img :src="flags.png" :alt="`${name.common} flag`" class="country__flag" />
 		<div class="country__info">
 			<h4 class="country__name">{{ name.common }}</h4>
-			<p class="country__detail"><strong>Population: </strong>{{ population }}</p>
+			<p class="country__detail">
+				<strong>Population: </strong>{{ formatNumberWithSuffix(population) }}
+			</p>
 			<p class="country__detail"><strong>Region: </strong>{{ region }}</p>
 			<p v-if="capital" class="country__detail">
 				<strong>Capital: </strong>{{ capital[0] }}

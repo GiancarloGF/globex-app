@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useSearchStore from '@/stores/search';
 import { storeToRefs } from 'pinia';
-import { toFirstUpper } from '@/utils/strings';
+import { toFirstUpper } from '@/utils';
 import { computed } from 'vue';
 const searchStore = useSearchStore();
 const { region } = storeToRefs(searchStore);

@@ -2,8 +2,9 @@
   "extends": "./tsconfig.app.json",
   "exclude": [],
   "compilerOptions": {
+    "target": "es2017",
     "composite": true,
     "lib": [],
     "types": ["node", "jsdom"]
-  }
+  },
 }

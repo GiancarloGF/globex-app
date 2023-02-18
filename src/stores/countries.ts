@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
 import countriesData from '@/assets/data.json';
 import type { ICountry } from '@/types/country';
-import { toLower } from '@/utils/strings';
+import { toLower } from '@/utils';
 
 export const useCountriesStore = defineStore('countries', () => {
 	// const searchStore = useSearchStore();

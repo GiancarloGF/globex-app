@@ -3,7 +3,7 @@ import { computed, Transition } from 'vue';
 import { RouterLink, useRouter, useRoute } from 'vue-router';
 import { useQuery } from '@tanstack/vue-query';
 import { getCountry } from '@/services/countries';
-import { toLower } from '@/utils/strings';
+import { formatNumberWithSuffix, toLower, formatNumberToKM } from '@/utils';
 import LoaderGlobe from '@/components/LoaderGlobe.vue';
 
 const router = useRouter();
@@ -15,39 +15,68 @@ const { isLoading, isError, data } = useQuery({
 	queryFn: () => getCountry(countryId.value),
 });
 
+const country = computed(() => data?.value?.[0]);
+const currencies = computed(() => {
+	if (!country.value?.currencies) return '';
+	return Object.values(country.value?.currencies)
+		.map((i) => i.name)
+		.join(', ');
+});
+
+const languages = computed(() => {
+	if (!country.value?.languages) return '';
+	return Object.values(country.value?.languages).join(', ');
+});
+
 const countryDetails = computed<any>(() => [
 	{
 		label: 'Native name',
-		value: data.value?.[0].name.common || '',
+		value: country.value?.name.common || '',
 	},
 	{
 		label: 'Population',
-		value: data.value?.[0]?.population || '',
+		value: country.value?.population
+			? formatNumberWithSuffix(country.value?.population)
+			: '',
 	},
 	{
 		label: 'Region',
-		value: data.value?.[0]?.region || '',
+		value: country.value?.region || '',
 	},
 	{
 		label: 'Sub region',
-		value: data.value?.[0]?.subregion || '',
+		value: country.value?.subregion || '',
 	},
 	{
 		label: 'Capital',
-		value: data.value?.[0]?.capital?.[0] || '',
+		value: country.value?.capital?.[0] || '',
 	},
 	// {
 	// 	label: 'Top level domain',
-	// 	value: data.value?.[0]?.topLevelDomain.join(', ') || '',
+	// 	value: country.value?.topLevelDomain.join(', ') || '',
 	// },
-	// {
-	// 	label: 'Currencies',
-	// 	value: data.value?.[0]?.currencies.map((i) => i.code).join(', ') || '',
-	// },
-	// {
-	// 	label: 'Languages',
-	// 	value: data.value?.[0]?.languages.map((i) => i.name).join(', ') || '',
-	// },
+	{
+		label: 'Currencies',
+		value: currencies.value,
+	},
+	{
+		label: 'Languages',
+		value: languages.value,
+	},
+	{
+		label: 'Area',
+		value: country.value?.area ? formatNumberToKM(country.value?.area) : '',
+	},
+	{
+		label: 'Demonyms',
+		value: country.value
+			? `${country.value.demonyms.eng.f}, ${country.value.demonyms.eng.m}`
+			: '',
+	},
+	{
+		label: 'Continents',
+		value: country.value ? country.value.continents.join(', ') : '',
+	},
 ]);
 
 const onSelectBorder = (borderId: string) => {
