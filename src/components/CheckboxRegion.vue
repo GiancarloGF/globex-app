@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { IRegionNames } from '@/types';
-import { useSearchStore } from '@/stores/search';
+// import type { IRegionNames } from '@/types/Region';
+import useSearchStore from '@/stores/search';
 import { storeToRefs } from 'pinia';
 import { toFirstUpper } from '@/utils/strings';
 const searchStore = useSearchStore();
 const { filters } = storeToRefs(searchStore);
 defineProps<{
-	name: IRegionNames;
+	name: string; // TODO: type this
 	iconName: string;
 }>();
 </script>

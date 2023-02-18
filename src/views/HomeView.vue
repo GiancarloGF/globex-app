@@ -3,10 +3,14 @@ import CountryCard from '@/components/CardCountry.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import { useQuery } from '@tanstack/vue-query';
 import { getCountries } from '@/services/countries';
+import useSearchStore from '@/stores/search';
+import { storeToRefs } from 'pinia';
 
+const searchStore = useSearchStore();
+const { path } = storeToRefs(searchStore);
 const { isLoading, isError, data } = useQuery({
-	queryKey: ['countries'],
-	queryFn: getCountries,
+	queryKey: ['countries', path],
+	queryFn: () => getCountries(path.value),
 });
 </script>
 

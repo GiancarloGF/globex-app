@@ -18,7 +18,7 @@ const onSelectCountry = () => {
 	router.push({
 		name: 'country',
 		params: {
-			countryId: toLower(props.data.name.common),
+			countryId: toLower(props.data.cca3),
 		},
 	});
 };

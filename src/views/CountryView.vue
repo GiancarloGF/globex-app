@@ -4,14 +4,15 @@ import { RouterLink, useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
 import { useQuery } from '@tanstack/vue-query';
 import { getCountry } from '@/services/countries';
+import { toLower } from '@/utils/strings';
 
 const router = useRouter();
 const route = useRoute();
-const countryId: string = route.params.countryId as string;
+const countryId = computed<string>(() => route.params.countryId as string);
 
 const { isLoading, isError, data } = useQuery({
 	queryKey: ['country', countryId],
-	queryFn: () => getCountry(countryId),
+	queryFn: () => getCountry(countryId.value),
 });
 
 const countryDetails = computed<any>(() => [
@@ -48,6 +49,10 @@ const countryDetails = computed<any>(() => [
 	// 	value: data.value?.[0]?.languages.map((i) => i.name).join(', ') || '',
 	// },
 ]);
+
+const onSelectBorder = (borderId: string) => {
+	router.push({ name: 'country', params: { countryId: toLower(borderId) } });
+};
 </script>
 <template>
 	<RouterLink to="/" class="button-back">
@@ -76,17 +81,17 @@ const countryDetails = computed<any>(() => [
 					<div v-if="country.borders" class="country__detail detail__borders">
 						<strong>Border countries: </strong>
 						<div class="borders">
-							<!-- <div
+							<div
 								v-for="border in country.borders"
 								:key="border"
 								class="border"
-								@click="router.push({ name: 'country', params: { countryId: border } })"
+								@click="onSelectBorder(border)"
 							>
 								{{ border }}
-							</div> -->
-							<div v-for="border in country.borders" :key="border" class="border">
-								{{ border }}
 							</div>
+							<!-- <div v-for="border in country.borders" :key="border" class="border">
+								{{ border }}
+							</div> -->
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSearchStore } from '@/stores/search';
+import useSearchStore from '@/stores/search';
 import { storeToRefs } from 'pinia';
 const searchStore = useSearchStore();
 const { inputValue } = storeToRefs(searchStore);
