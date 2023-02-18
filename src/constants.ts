@@ -1,4 +1,7 @@
-import type { IRegion } from '@/types';
+interface IRegion {
+	name: string;
+	iconName: string;
+}
 export const REGIONS: IRegion[] = [
 	{
 		name: 'americas',
